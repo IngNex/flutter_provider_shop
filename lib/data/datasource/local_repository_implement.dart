@@ -19,14 +19,14 @@ class LocalRepositoryImplement extends LocalRepositoryInterface {
   }
 
   @override
-  Future<String> getToken() async {
+  Future<String?> getToken() async {
     final SharedPreferences sharedPreferences = await _sharedPreference;
     final token = sharedPreferences.getString(_pref_token);
-    return token ?? _pref_token;
+    return token;
   }
 
   @override
-  Future<String> saveToken(String token) async {
+  Future<String?> saveToken(String token) async {
     final SharedPreferences sharedPreference = await _sharedPreference;
     sharedPreference.setString(_pref_token, token);
 
