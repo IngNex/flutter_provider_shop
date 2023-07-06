@@ -55,6 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -64,26 +65,68 @@ class _SplashScreenState extends State<SplashScreen> {
             colors: deliveryGradients,
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            CircleAvatar(
-              backgroundColor: DeliveryColors.white,
-              radius: 80,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset('assets/images/ingnex.png'),
+            Positioned(
+              top: size.height * 0.4,
+              left: 0,
+              right: 0,
+              child: Column(
+                children: [
+                  TweenAnimationBuilder(
+                    tween: Tween(begin: 1.0, end: 0.0),
+                    duration: const Duration(milliseconds: 700),
+                    curve: Curves.ease,
+                    builder: (context, value, child) {
+                      return Transform.translate(
+                        offset: Offset(0, 100.0 * value),
+                        child: CircleAvatar(
+                          backgroundColor: DeliveryColors.white,
+                          radius: 80,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset('assets/images/ingnex.png'),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  TweenAnimationBuilder(
+                    tween: Tween(begin: 1.0, end: 0.0),
+                    duration: const Duration(milliseconds: 850),
+                    curve: Curves.ease,
+                    builder: (context, value, child) {
+                      return Transform.translate(
+                        offset: Offset(0, 100.0 * value),
+                        child: Text(
+                          "IngNex Shop",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4
+                              ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: DeliveryColors.white),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "IngNex Shop",
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline4?.copyWith(
-                  fontWeight: FontWeight.bold, color: DeliveryColors.white),
+            Positioned(
+              bottom: 10,
+              left: 0,
+              right: 0,
+              child: Text(
+                "© MaicolDev",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline4?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
+                    fontSize: 18),
+              ),
             ),
           ],
         ),
